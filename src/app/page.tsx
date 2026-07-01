@@ -5,7 +5,14 @@ import CartDrawer from '@/components/CartDrawer';
 import ProductCard from '@/components/ProductCard';
 import { PRODUCTS, CATEGORIES } from '@/lib/products';
 import { ArrowRight, Star, Truck, ShieldCheck, Leaf, RotateCcw, CheckCircle, ChevronDown } from 'lucide-react';
-import Link from 'next/link';
+
+const HERO_IMG = 'https://images.unsplash.com/photo-1593904308074-e1a53c4385f9?w=1800&q=85&auto=format&fit=crop';
+const FALLBACK_IMG = 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=900&q=80&auto=format&fit=crop';
+
+function SafeImg({ src, alt, style }: { src: string; alt: string; style?: React.CSSProperties }) {
+  const [s, setS] = useState(src);
+  return <img src={s} alt={alt} onError={() => setS(FALLBACK_IMG)} loading="lazy" style={style} />;
+}
 
 export default function Home() {
   const [cat, setCat] = useState('All');
@@ -18,7 +25,7 @@ export default function Home() {
 
       {/* HERO */}
       <section style={{minHeight:'100vh',position:'relative',display:'flex',alignItems:'center',overflow:'hidden'}}>
-        <div style={{position:'absolute',inset:0,backgroundImage:`url('https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=1800&q=85&auto=format&fit=crop')`,backgroundSize:'cover',backgroundPosition:'center',filter:'brightness(0.3)'}}/>
+        <SafeImg src={HERO_IMG} alt="Dried fruits hero" style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover',filter:'brightness(0.3)'}}/>
         <div style={{position:'absolute',inset:0,background:'linear-gradient(135deg,rgba(13,26,13,0.9) 0%,rgba(13,26,13,0.4) 60%,rgba(13,26,13,0.65) 100%)'}}/>
         <div style={{position:'absolute',top:'15%',right:'10%',width:600,height:600,background:'radial-gradient(circle,rgba(200,146,42,0.1) 0%,transparent 65%)',pointerEvents:'none'}}/>
 
@@ -99,35 +106,37 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FEATURED */}
-      <section style={{padding:'96px 0',background:'rgba(255,255,255,0.015)'}}>
+      {/* ABOUT / STORY */}
+      <section id="about" style={{padding:'96px 0',background:'rgba(255,255,255,0.015)'}}>
         <div className="wrap">
           <div style={{display:'grid',gridTemplateColumns:'1fr 1.1fr',gap:0,background:'rgba(255,255,255,0.045)',backdropFilter:'blur(24px)',border:'1px solid rgba(255,255,255,0.09)',borderRadius:24,overflow:'hidden',marginBottom:28}}>
             <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:2}}>
-              {['https://images.unsplash.com/photo-1605027990121-cbae9e0642df?w=300&q=75','https://images.unsplash.com/photo-1498557850523-fd3d118b962e?w=300&q=75','https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=300&q=75','https://images.unsplash.com/photo-1563636619-e9143da7973b?w=300&q=75'].map((src,i)=>(
-                <div key={i} style={{height:210,overflow:'hidden'}}><img src={src+'&auto=format&fit=crop'} alt="" style={{width:'100%',height:'100%',objectFit:'cover',filter:'brightness(0.72)'}}/></div>
+              {[PRODUCTS[3].image, PRODUCTS[6].image, PRODUCTS[0].image, PRODUCTS[4].image].map((src,i)=>(
+                <div key={i} style={{height:210,overflow:'hidden'}}>
+                  <SafeImg src={src} alt="" style={{width:'100%',height:'100%',objectFit:'cover',filter:'brightness(0.72)'}}/>
+                </div>
               ))}
             </div>
             <div style={{padding:'48px 44px',display:'flex',flexDirection:'column',justifyContent:'center'}}>
-              <p style={{color:'var(--gold)',fontSize:12,fontWeight:600,letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:14}}>Chef's Pick</p>
-              <h2 style={{fontSize:36,fontWeight:700,color:'#fff',lineHeight:1.2,marginBottom:18}}>Chef's Gourmet<br/>Choice Bundle</h2>
-              <p style={{color:'var(--text-s)',fontSize:15,lineHeight:1.8,marginBottom:22}}>Curated by culinary experts — the world's finest dried fruits and nuts for gourmet cooking, healthy snacking, and premium gifting.</p>
-              {['100% natural, zero additives','Certified organic farms','Rich in essential nutrients','Elegant gift packaging'].map(pt=>(
+              <p style={{color:'var(--gold)',fontSize:12,fontWeight:600,letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:14}}>Our Story</p>
+              <h2 style={{fontSize:36,fontWeight:700,color:'#fff',lineHeight:1.2,marginBottom:18}}>From Farm to<br/>Your Table</h2>
+              <p style={{color:'var(--text-s)',fontSize:15,lineHeight:1.8,marginBottom:22}}>Duzo started with one mission — bring the world's finest dried fruits and nuts directly from trusted farms to your home, with zero compromise on quality.</p>
+              {['100% natural, zero additives','Certified organic farms','Rich in essential nutrients','Sourced from 12+ countries'].map(pt=>(
                 <div key={pt} style={{display:'flex',alignItems:'center',gap:10,marginBottom:9}}>
                   <CheckCircle size={15} color="var(--gold)"/>
                   <span style={{color:'var(--text-s)',fontSize:14}}>{pt}</span>
                 </div>
               ))}
-              <a href="#categories" className="btn-gold" style={{marginTop:26,alignSelf:'flex-start',textDecoration:'none'}}>Order Bundle <ArrowRight size={16}/></a>
+              <a href="#categories" className="btn-gold" style={{marginTop:26,alignSelf:'flex-start',textDecoration:'none'}}>Shop Collection <ArrowRight size={16}/></a>
             </div>
           </div>
 
           <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:24}}>
-            {[{img:'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=600&q=80&auto=format&fit=crop',tag:'Seasonal',title:'Farm to Your Doorstep',desc:'Freshly harvested and carefully dried — our seasonal picks arrive at peak flavor.',cta:'Shop Seasonal'},
-              {img:'https://images.unsplash.com/photo-1574570068036-add3c9a491fd?w=600&q=80&auto=format&fit=crop',tag:'Organic',title:'Certified Organic Range',desc:'Third-party certified purity — clean, natural nutrition you can trust every time.',cta:'Explore Organic'}
+            {[{img:PRODUCTS[2].image,tag:'Seasonal',title:'Farm to Your Doorstep',desc:'Freshly harvested and carefully dried — our seasonal picks arrive at peak flavor.',cta:'Shop Seasonal'},
+              {img:PRODUCTS[8].image,tag:'Organic',title:'Certified Organic Range',desc:'Third-party certified purity — clean, natural nutrition you can trust every time.',cta:'Explore Organic'}
             ].map(card=>(
               <div key={card.tag} style={{borderRadius:20,overflow:'hidden',background:'rgba(255,255,255,0.045)',backdropFilter:'blur(20px)',border:'1px solid rgba(255,255,255,0.09)',display:'grid',gridTemplateColumns:'1fr 1.1fr'}}>
-                <div style={{minHeight:200,overflow:'hidden'}}><img src={card.img} alt={card.title} style={{width:'100%',height:'100%',objectFit:'cover',filter:'brightness(0.68)'}}/></div>
+                <div style={{minHeight:200,overflow:'hidden'}}><SafeImg src={card.img} alt={card.title} style={{width:'100%',height:'100%',objectFit:'cover',filter:'brightness(0.68)'}}/></div>
                 <div style={{padding:'28px 24px',display:'flex',flexDirection:'column',justifyContent:'center'}}>
                   <p style={{color:'var(--gold)',fontSize:11,fontWeight:600,letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:10}}>{card.tag}</p>
                   <h3 style={{fontSize:20,fontWeight:700,color:'#fff',lineHeight:1.3,marginBottom:12}}>{card.title}</h3>
@@ -148,9 +157,9 @@ export default function Home() {
             <h2 style={{fontSize:'clamp(28px,4vw,44px)',fontWeight:700,color:'#fff'}}>What Our Customers Say</h2>
           </div>
           <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:24}}>
-            {[{name:'Sarah M.',role:'Health Coach',text:'Duzo has transformed my snacking habits. The medjool dates are incredible — rich, natural sweetness with zero additives.',img:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80&auto=format&fit=crop'},
-              {name:'James T.',role:'Executive Chef',text:'As a professional chef, quality matters. Duzo delivers consistent premium produce that elevates every dish I create.',img:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80&auto=format&fit=crop'},
-              {name:'Amara O.',role:'Nutritionist',text:'I recommend Duzo to all my clients. Their organic certification is genuine and the nutrient density is exceptional.',img:'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=80&q=80&auto=format&fit=crop'}
+            {[{name:'Sarah M.',role:'Health Coach',text:'Duzo has transformed my snacking habits. The medjool dates are incredible — rich, natural sweetness with zero additives.',initial:'S'},
+              {name:'James T.',role:'Executive Chef',text:'As a professional chef, quality matters. Duzo delivers consistent premium produce that elevates every dish I create.',initial:'J'},
+              {name:'Amara O.',role:'Nutritionist',text:'I recommend Duzo to all my clients. Their organic certification is genuine and the nutrient density is exceptional.',initial:'A'}
             ].map(r=>(
               <div key={r.name} style={{background:'rgba(255,255,255,0.05)',backdropFilter:'blur(20px)',border:'1px solid rgba(255,255,255,0.09)',borderRadius:20,padding:'28px 26px',transition:'border-color 0.3s',cursor:'default'}}
                 onMouseEnter={e=>(e.currentTarget as HTMLElement).style.borderColor='rgba(200,146,42,0.35)'}
@@ -161,7 +170,7 @@ export default function Home() {
                 </div>
                 <p style={{color:'rgba(255,255,255,0.68)',fontSize:14,lineHeight:1.85,marginBottom:22,fontStyle:'italic'}}>"{r.text}"</p>
                 <div style={{display:'flex',alignItems:'center',gap:12}}>
-                  <img src={r.img} alt={r.name} style={{width:44,height:44,borderRadius:'50%',objectFit:'cover',border:'2px solid rgba(200,146,42,0.4)'}}/>
+                  <div style={{width:44,height:44,borderRadius:'50%',background:'linear-gradient(135deg,#c8922a,#e0a93a)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:18,fontWeight:700,color:'#fff'}}>{r.initial}</div>
                   <div>
                     <div style={{fontSize:15,fontWeight:700,color:'#fff'}}>{r.name}</div>
                     <div style={{fontSize:12,color:'var(--text-m)'}}>{r.role}</div>
@@ -191,21 +200,30 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            {[{h:'Shop',l:['All Products','Dates','Berries','Nuts','Gift Bundles']},{h:'Company',l:['About Us','Blog','Careers','Press']},{h:'Support',l:['Help Center','Contact','Returns','Track Order']}].map(col=>(
-              <div key={col.h}>
-                <h4 style={{fontSize:14,fontWeight:700,color:'#fff',marginBottom:20}}>{col.h}</h4>
-                {col.l.map(l=><a key={l} href="#" style={{display:'block',color:'var(--text-m)',textDecoration:'none',fontSize:13,marginBottom:12}}>{l}</a>)}
-              </div>
-            ))}
-          </div>
-          <div style={{borderTop:'1px solid rgba(255,255,255,0.06)',padding:'20px 0',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-            <p style={{color:'var(--text-m)',fontSize:13}}>© 2026 Duzo. All rights reserved.</p>
-            <div style={{display:'flex',gap:20}}>
-              {['Privacy','Terms','Cookies'].map(l=><a key={l} href="#" style={{color:'var(--text-m)',textDecoration:'none',fontSize:13}}>{l}</a>)}
+            <div>
+              <h4 style={{fontSize:14,fontWeight:700,color:'#fff',marginBottom:20}}>Shop</h4>
+              {CATEGORIES.filter(c=>c!=='All').map(c=>(
+                <button key={c} onClick={()=>{setCat(c);document.getElementById('categories')?.scrollIntoView({behavior:'smooth'});}} style={{display:'block',color:'var(--text-m)',background:'none',border:'none',textAlign:'left',fontSize:13,marginBottom:12,cursor:'pointer',padding:0}}>{c}</button>
+              ))}
             </div>
+            <div>
+              <h4 style={{fontSize:14,fontWeight:700,color:'#fff',marginBottom:20}}>Company</h4>
+              {['About Us','Our Story','Careers'].map(l=>(
+                <a key={l} href="#about" style={{display:'block',color:'var(--text-m)',textDecoration:'none',fontSize:13,marginBottom:12}}>{l}</a>
+              ))}
+            </div>
+            <div>
+              <h4 style={{fontSize:14,fontWeight:700,color:'#fff',marginBottom:20}}>Support</h4>
+              <a href="mailto:hello@duzo.com" style={{display:'block',color:'var(--text-m)',textDecoration:'none',fontSize:13,marginBottom:12}}>hello@duzo.com</a>
+              <a href="tel:+18001234567" style={{display:'block',color:'var(--text-m)',textDecoration:'none',fontSize:13,marginBottom:12}}>+1 (800) 123-4567</a>
+            </div>
+          </div>
+          <div style={{borderTop:'1px solid rgba(255,255,255,0.06)',padding:'20px 0',display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:12}}>
+            <p style={{color:'var(--text-m)',fontSize:13}}>© 2026 Duzo. All rights reserved.</p>
           </div>
         </div>
       </footer>
+      <style>{`@media(max-width:900px){footer .wrap > div:first-child{grid-template-columns:1fr 1fr!important}}@media(max-width:560px){footer .wrap > div:first-child{grid-template-columns:1fr!important}}`}</style>
     </main>
   );
 }

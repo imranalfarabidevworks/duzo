@@ -4,11 +4,14 @@ import { ShoppingCart, Heart, Star } from 'lucide-react';
 import { Product } from '@/lib/products';
 import { useCart } from '@/context/CartContext';
 
+const FALLBACK_IMG = 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=600&q=80&auto=format&fit=crop';
+
 export default function ProductCard({ product }: { product: Product }) {
   const { addItem } = useCart();
   const [wish, setWish] = useState(false);
   const [added, setAdded] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const [imgSrc, setImgSrc] = useState(product.image);
 
   const handleAdd = () => {
     addItem(product);
@@ -20,8 +23,14 @@ export default function ProductCard({ product }: { product: Product }) {
     <div onMouseEnter={()=>setHovered(true)} onMouseLeave={()=>setHovered(false)}
       style={{background:'rgba(255,255,255,0.05)',backdropFilter:'blur(20px)',border:`1px solid ${hovered?'rgba(200,146,42,0.4)':'rgba(255,255,255,0.09)'}`,borderRadius:20,overflow:'hidden',transition:'all 0.3s',transform:hovered?'translateY(-5px)':'none',boxShadow:hovered?'0 20px 48px rgba(0,0,0,0.35)':'none'}}
     >
-      <div style={{position:'relative',height:210,overflow:'hidden'}}>
-        <img src={product.image} alt={product.name} style={{width:'100%',height:'100%',objectFit:'cover',transform:hovered?'scale(1.07)':'scale(1)',transition:'transform 0.4s',filter:'brightness(0.85)'}}/>
+      <div style={{position:'relative',height:210,overflow:'hidden',background:'#1a2a1a'}}>
+        <img
+          src={imgSrc}
+          alt={product.name}
+          onError={() => setImgSrc(FALLBACK_IMG)}
+          loading="lazy"
+          style={{width:'100%',height:'100%',objectFit:'cover',transform:hovered?'scale(1.07)':'scale(1)',transition:'transform 0.4s',filter:'brightness(0.85)'}}
+        />
         {product.badge && <div style={{position:'absolute',top:12,left:12,background:'linear-gradient(135deg,#c8922a,#e0a93a)',color:'#fff',fontSize:11,fontWeight:700,padding:'4px 12px',borderRadius:20,textTransform:'uppercase',letterSpacing:'0.06em'}}>{product.badge}</div>}
         <div style={{position:'absolute',top:10,right:10}}>
           <button onClick={()=>setWish(!wish)} style={{width:34,height:34,borderRadius:'50%',background:'rgba(0,0,0,0.55)',backdropFilter:'blur(8px)',border:'1px solid rgba(255,255,255,0.15)',display:'flex',alignItems:'center',justifyContent:'center',cursor:'pointer'}}>

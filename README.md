@@ -1,69 +1,105 @@
 # 🌿 Duzo — Full-Stack E-Commerce Website
 
-## Stack
-- **Frontend**: Next.js 15 + TypeScript + Glassmorphism UI
-- **Backend**: Next.js API Routes
-- **Database**: MongoDB (Mongoose)
-- **Auth**: JWT-based (httpOnly cookies)
-- **Payment**: Stripe Checkout
+**Next.js 15 + TypeScript + MongoDB + Stripe + JWT Auth**
 
-## Setup (5 মিনিট)
+---
 
-### 1. Install dependencies
+## ✅ Features
+- Glassmorphism UI (dark green + gold)
+- 12 real food products (dates, nuts, berries, fruits)
+- User Register / Login (JWT, httpOnly cookie)
+- Shopping cart with promo codes
+- Stripe card payment OR Cash on Delivery
+- Orders saved to MongoDB with order number
+- My Orders page with status tracking
+- Image fallback (কোনো image না আসলেও crash করবে না)
+- Mobile responsive
+
+## 🚀 Setup (5 minutes)
+
+### Step 1 — Install
 ```bash
 npm install
 ```
 
-### 2. Environment Variables
-`.env.local` ফাইলে আপনার keys দিন:
+### Step 2 — .env.local এ keys দিন
 
 ```env
-# MongoDB Atlas থেকে connection string নিন (free tier available)
-MONGODB_URI=mongodb+srv://USER:PASS@cluster.mongodb.net/duzo
+# ── MongoDB ──────────────────────────────────────────────
+# mongodb.com/atlas → Free cluster → Connect → copy URI
+MONGODB_URI=mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/duzo
 
-# যেকোনো random string (min 32 chars)
-BETTER_AUTH_SECRET=your-random-secret-key-here-minimum-32-chars
+# ── Auth ─────────────────────────────────────────────────
+# যেকোনো random 32+ character string
+BETTER_AUTH_SECRET=change-this-to-any-long-random-string-32chars
 
-# Stripe থেকে নিন (stripe.com — test keys দিয়েই কাজ করবে)
-STRIPE_SECRET_KEY=sk_test_...
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
+# ── Stripe (optional — COD works without it) ──────────────
+# stripe.com → Dashboard → Developers → API keys
+STRIPE_SECRET_KEY=sk_test_xxxxxxxxxxxxx
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_xxxxxxxxxxxxx
 
+# ── App URL ───────────────────────────────────────────────
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
 
-### 3. Run
+### Step 3 — Run
 ```bash
 npm run dev
 ```
+→ http://localhost:3000
 
-Open http://localhost:3000
+---
 
-## Pages
-- `/` — Home (products, hero, reviews)
-- `/auth` — Login / Register
-- `/checkout` — Checkout with Stripe or COD
-- `/orders` — My Orders
-- `/order-success` — Order confirmation
+## 💳 Test Stripe Payment
+Card: `4242 4242 4242 4242`
+Date: যেকোনো future date
+CVV: যেকোনো 3 digit
 
-## MongoDB Setup (Free)
-1. mongodb.com/atlas এ যান
-2. Free cluster তৈরি করুন
-3. Connection string কপি করুন → .env.local এ দিন
+## 🎫 Promo Codes
+| Code | Discount |
+|------|---------|
+| DUZO15 | 15% off |
+| WELCOME10 | 10% off |
+| ORGANIC20 | 20% off |
 
-## Stripe Setup (Test Mode)
-1. stripe.com এ যান
-2. Dashboard → API Keys
-3. Test keys কপি করুন → .env.local এ দিন
-4. Real card payment ছাড়াও test cards কাজ করবে: `4242 4242 4242 4242`
+## 📦 MongoDB Atlas (Free Setup)
+1. https://mongodb.com/atlas → Sign up free
+2. Create a free cluster (M0)
+3. Database Access → Add user
+4. Network Access → Add IP → 0.0.0.0/0 (allow all)
+5. Connect → Connect your application → copy URI
+6. Replace `<password>` with your password in the URI
 
-## Features
-✅ Real product photos (Unsplash)
-✅ Glassmorphism UI design
-✅ User registration & login (JWT)
-✅ Shopping cart (localStorage)
-✅ Promo codes (DUZO15, WELCOME10, ORGANIC20)
-✅ Stripe payment integration
-✅ Cash on Delivery option
-✅ Orders saved to MongoDB
-✅ Order history page
-✅ Mobile responsive
+---
+
+## 🗂 Project Structure
+```
+src/
+├── app/
+│   ├── page.tsx          ← Home page
+│   ├── auth/page.tsx     ← Login / Register
+│   ├── checkout/page.tsx ← Checkout
+│   ├── orders/page.tsx   ← My Orders
+│   ├── order-success/    ← Order confirmation
+│   └── api/
+│       ├── auth/login    ← POST login
+│       ├── auth/register ← POST register
+│       ├── auth/logout   ← POST logout
+│       ├── auth/me       ← GET current user
+│       ├── checkout      ← POST create order
+│       └── orders        ← GET user orders
+├── components/
+│   ├── Navbar.tsx
+│   ├── CartDrawer.tsx
+│   └── ProductCard.tsx
+├── context/
+│   ├── CartContext.tsx   ← Cart state (localStorage)
+│   └── AuthContext.tsx   ← Auth state
+├── lib/
+│   ├── products.ts       ← Product data
+│   ├── db.ts             ← MongoDB connection
+│   └── auth.ts           ← JWT utilities
+└── models/
+    ├── User.ts           ← User schema
+    └── Order.ts          ← Order schema
+```
