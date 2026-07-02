@@ -38,14 +38,21 @@ const Hero: React.FC = () => {
             Hand-selected premium dried fruits & nuts from the world's finest farms — naturally dried to lock in every nutrient and flavor.
           </p>
 
-          <div style={{ display:'flex', gap:16, flexWrap:'wrap', marginBottom:52 }}>
-            <button className="btn-gold" style={{ fontSize:16, padding:'15px 36px' }}>
-              Shop Now <ArrowRight size={17}/>
-            </button>
-            <button className="btn-glass" style={{ fontSize:16, padding:'14px 32px' }}>
-              Our Story
-            </button>
-          </div>
+       <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 52 }}>
+  <button 
+    className="btn-gold no-underline" 
+    style={{ fontSize: 16, padding: '15px 36px', textDecoration: 'none' }}
+  >
+    Shop Now <ArrowRight size={17}/>
+  </button>
+  
+  <button 
+    className="btn-glass no-underline" 
+    style={{ fontSize: 16, padding: '14px 32px', textDecoration: 'none' }}
+  >
+    Our Story
+  </button>
+</div>
 
           {/* Rating */}
           <div style={{ display:'flex', alignItems:'center', gap:12 }}>

@@ -1,8 +1,8 @@
 const reportWebVitals = (onPerfEntry?: (metric: any) => void) => {
   if (onPerfEntry && onPerfEntry instanceof Function) {
+    // @ts-ignore
     import('web-vitals').then(({ onCLS, onFCP, onLCP, onTTFB }) => {
       onCLS(onPerfEntry);
-    
       onFCP(onPerfEntry);
       onLCP(onPerfEntry);
       onTTFB(onPerfEntry);
