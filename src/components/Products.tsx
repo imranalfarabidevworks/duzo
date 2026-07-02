@@ -17,13 +17,13 @@ export interface Product {
 export const PRODUCTS: Product[] = [
   {
     id:1, name:'Medjool Dates', price:17.8, originalPrice:22,
-    img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9JHfCMNl7wCC6S_fn92aPKAuhTd9VLsfuKlAidqr1YA&s=10',
+    img:'https://i.ibb.co.com/XkvYTMxk/images-3.jpg',
     rating:4.9, reviews:312, badge:'Best Seller', category:'Dates',
     desc:'Premium jumbo dates, soft & caramel-rich'
   },
   {
     id:2, name:'Goji Berries', price:17.5, originalPrice:21,
-    img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXUZccSvTY8a-mrIjgDG-foSeYqmt3DQH-ni1CSdOhQg&s=10',
+    img:'https://i.ibb.co.com/KkV22X6/images-2.jpg',
     rating:4.7, reviews:189, badge:'New', category:'Berries',
     desc:'Sun-dried superfood berries from Tibet'
   },
