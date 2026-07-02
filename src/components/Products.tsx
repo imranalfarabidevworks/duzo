@@ -15,12 +15,12 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
- {
+{
     id: 1, 
     name: 'Premium Almonds', 
     price: 15.5, 
     originalPrice: 19,
-    img: 'https://i.ibb.co.com/vxsZ7Yy/almonds.jpg',
+    img: 'https://images.unsplash.com/photo-1508061253366-f7da158b6d46?q=80&w=600&auto=format&fit=crop',
     rating: 4.8, 
     reviews: 245, 
     badge: 'Best Seller', 
@@ -32,7 +32,7 @@ export const PRODUCTS: Product[] = [
     name: 'Organic Dried Figs', 
     price: 18.2, 
     originalPrice: 23,
-    img: 'https://i.ibb.co.com/N6wT5Fz/figs.jpg',
+    img: 'https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?q=80&w=600&auto=format&fit=crop',
     rating: 4.6, 
     reviews: 120, 
     badge: 'New', 
