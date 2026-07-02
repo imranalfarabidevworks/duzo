@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ShoppingCart, Heart, Star } from 'lucide-react';
 import { Product } from '@/lib/products';
 import { useCart } from '@/context/CartContext';
@@ -11,12 +11,7 @@ export default function ProductCard({ product }: { product: Product }) {
   const [wish, setWish] = useState(false);
   const [added, setAdded] = useState(false);
   const [hovered, setHovered] = useState(false);
-  const [imgSrc, setImgSrc] = useState(product.image || FALLBACK_IMG);
-
-  // প্রোডাক্ট চেঞ্জ হলে ইমেজ স্টেট আপডেট করার জন্য
-  useEffect(() => {
-    setImgSrc(product.image || FALLBACK_IMG);
-  }, [product.image]);
+  const [imgSrc, setImgSrc] = useState(product.image);
 
   const handleAdd = () => {
     addItem(product);
