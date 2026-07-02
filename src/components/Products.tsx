@@ -15,17 +15,29 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
-  {
-    id:1, name:'Medjool Dates', price:17.8, originalPrice:22,
-    img:'https://i.ibb.co.com/XkvYTMxk/images-3.jpg',
-    rating:4.9, reviews:312, badge:'Best Seller', category:'Dates',
-    desc:'Premium jumbo dates, soft & caramel-rich'
+ {
+    id: 1, 
+    name: 'Premium Almonds', 
+    price: 15.5, 
+    originalPrice: 19,
+    img: 'https://i.ibb.co.com/vxsZ7Yy/almonds.jpg',
+    rating: 4.8, 
+    reviews: 245, 
+    badge: 'Best Seller', 
+    category: 'Nuts',
+    desc: 'Crispy, raw, and highly nutritious premium almonds.'
   },
   {
-    id:2, name:'Goji Berries', price:17.5, originalPrice:21,
-    img:'https://i.ibb.co.com/KkV22X6/images-2.jpg',
-    rating:4.7, reviews:189, badge:'New', category:'Berries',
-    desc:'Sun-dried superfood berries from Tibet'
+    id: 2, 
+    name: 'Organic Dried Figs', 
+    price: 18.2, 
+    originalPrice: 23,
+    img: 'https://i.ibb.co.com/N6wT5Fz/figs.jpg',
+    rating: 4.6, 
+    reviews: 120, 
+    badge: 'New', 
+    category: 'Fruits',
+    desc: 'Naturally sweet and fiber-rich organic dried figs.'
   },
   {
     id:3, name:'Dried Apricots', price:10.6,
