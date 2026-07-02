@@ -98,6 +98,7 @@ const Footer: React.FC = () => {
         {/* Bottom bar */}
         <div style={{ borderTop:'1px solid rgba(255,255,255,0.06)', padding:'20px 0', display:'flex', justifyContent:'space-between', alignItems:'center', flexWrap:'wrap', gap:12 }}>
           <p style={{ color:'var(--text-muted)', fontSize:13 }}>© 2026 Duzo. All rights reserved.</p>
+          <p>Developed By Imran Al Farabi</p>
           <div style={{ display:'flex', gap:4 }}>
             {['Visa','Mastercard','PayPal','Apple Pay'].map(p=>(
               <span key={p} style={{ padding:'4px 12px', background:'rgba(255,255,255,0.06)', border:'1px solid rgba(255,255,255,0.09)', borderRadius:6, fontSize:11, color:'var(--text-muted)' }}>{p}</span>
