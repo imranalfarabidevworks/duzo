@@ -3,11 +3,16 @@ import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import CartDrawer from '@/components/CartDrawer';
 import ProductCard from '@/components/ProductCard';
-import { PRODUCTS, CATEGORIES } from '@/lib/products';
+
+// 🔴 Named Import এর মাধ্যমে PRODUCTS ডেটা আনা হয়েছে এবং টাইপ সিঙ্ক করা হয়েছে
+import { PRODUCTS, Product } from '@/lib/products'; 
 import { ArrowRight, Star, Truck, ShieldCheck, Leaf, RotateCcw, CheckCircle, ChevronDown } from 'lucide-react';
 
 const HERO_IMG = 'https://images.unsplash.com/photo-1593904308074-e1a53c4385f9?w=1800&q=85&auto=format&fit=crop';
 const FALLBACK = 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=900&q=80&auto=format&fit=crop';
+
+// 🔴 ফিল্টারিং এর জন্য CATEGORIES অ্যারেটি ডিফাইন করা হলো
+const CATEGORIES = ['All', 'Dates', 'Berries', 'Nuts', 'Fruits'];
 
 function SafeImg({ src, alt, style }: { src: string; alt: string; style?: React.CSSProperties }) {
   const [s, setS] = useState(src);
@@ -16,6 +21,8 @@ function SafeImg({ src, alt, style }: { src: string; alt: string; style?: React.
 
 export default function Home() {
   const [cat, setCat] = useState('All');
+  
+  // PRODUCTS ব্যবহার করে ফিল্টারিং করা হচ্ছে
   const filtered = cat === 'All' ? PRODUCTS : PRODUCTS.filter(p => p.category === cat);
 
   return (
@@ -118,9 +125,11 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="products-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(240px,1fr))', gap: 22 }}>
-            {filtered.map(p => <ProductCard key={p.id} product={p} />)}
-          </div>
+         <div className="products-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(240px,1fr))', gap: 22 }}>
+  {filtered.map((p: Product) => (
+    <ProductCard key={p.id} product={p} />
+  ))}
+</div>
         </div>
       </section>
 
@@ -130,9 +139,9 @@ export default function Home() {
           {/* Big feature card */}
           <div className="about-card two-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1.1fr', background: 'rgba(255,255,255,0.045)', backdropFilter: 'blur(24px)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 22, overflow: 'hidden', marginBottom: 24 }}>
             <div className="mosaic-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
-              {[PRODUCTS[3].image, PRODUCTS[6].image, PRODUCTS[0].image, PRODUCTS[4].image].map((src, i) => (
+              {[PRODUCTS[3]?.image, PRODUCTS[6]?.image, PRODUCTS[0]?.image, PRODUCTS[4]?.image].map((src, i) => (
                 <div key={i} style={{ height: 200, overflow: 'hidden' }}>
-                  <SafeImg src={src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.72)' }} />
+                  <SafeImg src={src || FALLBACK} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.72)' }} />
                 </div>
               ))}
             </div>
@@ -153,12 +162,12 @@ export default function Home() {
           {/* Two promo cards */}
           <div className="two-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
             {[
-              { img: PRODUCTS[2].image, tag: 'Seasonal', title: 'Farm to Your Doorstep', desc: 'Freshly harvested and carefully dried — our seasonal picks arrive at peak flavor.', cta: 'Shop Seasonal' },
-              { img: PRODUCTS[8].image, tag: 'Organic', title: 'Certified Organic Range', desc: 'Third-party certified purity — clean, natural nutrition you can trust every time.', cta: 'Explore Organic' },
+              { img: PRODUCTS[2]?.image, tag: 'Seasonal', title: 'Farm to Your Doorstep', desc: 'Freshly harvested and carefully dried — our seasonal picks arrive at peak flavor.', cta: 'Shop Seasonal' },
+              { img: PRODUCTS[7]?.image, tag: 'Organic', title: 'Certified Organic Range', desc: 'Third-party certified purity — clean, natural nutrition you can trust every time.', cta: 'Explore Organic' },
             ].map(card => (
               <div key={card.tag} className="promo-card" style={{ borderRadius: 18, overflow: 'hidden', background: 'rgba(255,255,255,0.045)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.09)', display: 'grid', gridTemplateColumns: '1fr 1.2fr' }}>
                 <div className="promo-img" style={{ minHeight: 180, overflow: 'hidden' }}>
-                  <SafeImg src={card.img} alt={card.title} style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.68)' }} />
+                  <SafeImg src={card.img || FALLBACK} alt={card.title} style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.68)' }} />
                 </div>
                 <div style={{ padding: '24px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                   <p style={{ color: 'var(--gold)', fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 8 }}>{card.tag}</p>
