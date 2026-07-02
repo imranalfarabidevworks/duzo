@@ -40,14 +40,14 @@ const Hero: React.FC = () => {
 
        <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 52 }}>
   <button 
-    className="btn-gold no-underline" 
+    className="btn-gold " 
     style={{ fontSize: 16, padding: '15px 36px', textDecoration: 'none' }}
   >
     Shop Now <ArrowRight size={17}/>
   </button>
   
   <button 
-    className="btn-glass no-underline" 
+    className="btn-glass " 
     style={{ fontSize: 16, padding: '14px 32px', textDecoration: 'none' }}
   >
     Our Story
